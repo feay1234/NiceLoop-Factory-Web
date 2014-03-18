@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.1.0
+Version: 2.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<meta charset="utf-8"/>
+<title>Metronic | Pages - Timeline</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="" name="description"/>
+<meta content="" name="author"/>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/> -->
+<link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN PAGE LEVEL STYLES -->
+<link href="assets/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css"/>
+<!-- END PAGE LEVEL STYLES -->
+<!-- BEGIN THEME STYLES -->
+<link href="assets/css/style-metronic.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/pages/timeline.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/pages/portfolio.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+<link href="assets/css/custom.css" rel="stylesheet" type="text/css"/>
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<!-- END HEAD -->
+<style type="text/css">
+	.selectedImage{
+		border-style: solid;
+		border-color: #4b8df8;
+		border-width: 5px;
+	}
+</style>
+<!-- BEGIN BODY -->
+<body class="page-header-fixed">
+<!-- BEGIN HEADER -->
+<div class="header navbar navbar-fixed-top">
+	<!-- BEGIN TOP NAVIGATION BAR -->
+	<div class="header-inner">
+		<!-- BEGIN LOGO -->
+		<a class="navbar-brand" href="index.html">
+			<img src="assets/img/logo.png" alt="logo" class="img-responsive"/>
+		</a>
+		<!-- END LOGO -->
+		<!-- BEGIN RESPONSIVE MENU TOGGLER -->
+		<a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<img src="assets/img/menu-toggler.png" alt=""/>
+		</a>
+		<!-- END RESPONSIVE MENU TOGGLER -->
+		<!-- BEGIN TOP NAVIGATION MENU -->
+		<ul class="nav navbar-nav pull-right">
+			<!-- BEGIN TODO DROPDOWN -->
+			<li class="dropdown" id="header_task_bar">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+					<i class="fa fa-tasks"></i>
+					<span id="selected_num" class="badge">
+						 0
+					</span>
+				</a>
+				<ul class="dropdown-menu extended tasks">
+					<li class="addGallary">
+						<a href="#" data-toggle="modal" data-target="#addModal">
+							 Add photo to gallary <i class="m-icon-swapright"></i>
+						</a>
+					</li>
+					<li >
+						<a href="#" id="deleteImage">
+							 Delete Image <i class="m-icon-swapright"></i>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<!-- END TODO DROPDOWN -->
+		</ul>
+		<!-- END TOP NAVIGATION MENU -->
+	</div>
+	<!-- END TOP NAVIGATION BAR -->
+</div>
+<!-- END HEADER -->
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+	<!-- BEGIN SIDEBAR -->
+	<div class="page-sidebar-wrapper">
+		<div class="page-sidebar navbar-collapse collapse">
+			<!-- BEGIN SIDEBAR MENU -->
+			<ul class="page-sidebar-menu">
+				<li class="start ">
+					<a href="index.html">
+						<i class="fa fa-home"></i>
+						<span class="title">
+							Home
+						</span>
+					</a>
+				</li>
+				<li class="active">
+					<a href="#">
+						<i class="fa fa-home"></i>
+						<span class="title">
+							Timeline
+						</span>
+						<span class="selected">
+						</span>
+						<span class="arrow open">
+						</span>
+					</a>
+				</li>
+				<li >
+					<a href="page_portfolio.html">
+						<i class="fa fa-sitemap"></i>
+						<span class="title">
+							Gallary
+						</span>
+						
+					</a>
+				</li>
+				<li >
+					<a href="test.html">
+						<i class="fa fa-sitemap"></i>
+						<span class="title">
+							Test UI
+						</span>
+						
+					</a>
+				</li>
+			</ul>
+			<!-- END SIDEBAR MENU -->
+		</div>
+	</div>
+	<!-- END SIDEBAR -->
+	<!-- BEGIN CONTENT -->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			
+			<!-- BEGIN PAGE HEADER-->
+			
+			<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+					<h3 class="page-title">
+					Timeline <small><a href="#" data-toggle="modal" data-target="#addTagModal">Create New Tag.</a></small>
+					</h3>
+					<ul class="list-inline sidebar-tags">
+			        		<?php
+			        			$con=mysqli_connect("mysql1.000webhost.com","a7310273_db","feay091088141","a7310273_db");
+			        			// Check connection
+								if (mysqli_connect_errno())
+								{
+								  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+								}
+								$result = mysqli_query($con,"SELECT * FROM Tag");
+								while($row = mysqli_fetch_array($result))
+								{
+									echo '<li>';
+									echo '<a href="#">';
+										echo "<i class='fa fa-tags'></i> ".$row['name'];
+									echo ' </a>';
+									echo '</li>';
+								}
+			        		?>
+						</ul>
+					<ul class="page-breadcrumb breadcrumb">
+						<li>
+							<i class="fa fa-home"></i>
+							<a href="#">
+								Home
+							</a> 	
+							<i class="fa fa-angle-right"></i>
+						</li>
+						<li>
+							<a href="#">
+								Timeline
+							</a>
+							<i class="fa fa-angle-right"></i>
+						</li>
+					</ul>
+					<!-- END PAGE TITLE & BREADCRUMB-->
+				</div>
+			</div>
+			<!-- END PAGE HEADER-->
+			<!-- BEGIN PAGE CONTENT-->
+			<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-body">
+			      	<h3>Comment</h3>
+			        <textarea id="commentEditModal" class="form-control" rows="3"></textarea>
+			        <h3>Tags</h3>
+			        <div id="checkboxEditModal" class="checkbox">
+			        	<ul id="tag_list" class="list-inline sidebar-tags">
+			        		<?php
+			        			$con=mysqli_connect("mysql1.000webhost.com","a7310273_db","feay091088141","a7310273_db");
+			        			// Check connection
+								if (mysqli_connect_errno())
+								{
+								  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+								}
+								$result = mysqli_query($con,"SELECT * FROM Tag");
+								while($row = mysqli_fetch_array($result))
+								{
+									echo '<li>';
+									echo '<label>';
+										echo "<input type='checkbox' value='".$row['name']."'>";
+										echo "<i class='fa fa-tags'></i> ".$row['name'];
+									echo '</label>';
+									echo '</li>';
+								}
+
+			        		?>
+						</ul>
+					  
+					</div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button id="saveEditModal" type="button" class="btn btn-primary">Save changes</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-body">
+			        <h3>Gallary</h3>
+			        <select class="form-control" id="gallary_list">
+			        		<?php
+			        			$con=mysqli_connect("mysql1.000webhost.com","a7310273_db","feay091088141","a7310273_db");
+			        			// Check connection
+								if (mysqli_connect_errno())
+								{
+								  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+								}
+								$result = mysqli_query($con,"SELECT * FROM Gallary");
+								while($row = mysqli_fetch_array($result))
+								{
+									echo '<option>';
+									echo $row['name'];
+									echo '</option>';
+								}
+								mysqli_close($con);
+			        		?>
+					</select>  
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button id="saveAddModal" type="button" class="btn btn-primary">Save changes</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<div class="modal fade" id="addTagModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-body">
+			      	<h3>Tag Name <small>no more than 64 letters</small></h3>
+			        <input id="tag_name" Galtype="text" class="form-control" placeholder="Text input">
+			        
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button id="saveAddTagModal" type="button" class="btn btn-primary">Save changes</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="timeline">		
+						<?php
+								$con=mysqli_connect("mysql1.000webhost.com","a7310273_db","feay091088141","a7310273_db");
+			        			// Check connection
+								if (mysqli_connect_errno())
+								{
+								  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+								}
+								$result = mysqli_query($con,"SELECT * FROM Image ORDER BY date DESC");
+								$date = 0;
+								$first_time = 0;
+								while($row = mysqli_fetch_array($result))
+								{
+									if ($first_time == 0) {
+										$first_time = 1;
+										$date = $row['date'];
+										echo '<li class="timeline">';
+											echo '<div class="timeline-time">';
+												echo '<span class="time">'.date("j M Y", strtotime($row['date'])).'</span>';
+											echo '</div>';
+											echo '<div class="timeline-icon"><i class="fa fa-rss"></i></div>';
+											echo '<div class="timeline-body">';
+												echo '<div class="row">';
+												echo '<div class="col-md-12">';
+												echo'<div class="tabbable tabbable-custom boxless">';
+												echo'<div class="margin-top-10">';
+												echo'<div class="row mix-grid">';
+									}
+									else if ($date != $row['date']) {
+										$date = $row['date'];
+															echo'</div>';
+																echo'</div>';
+															echo'</div>';
+														echo'</div>';
+													echo'</div>';
+													
+												echo'</div>';
+											echo '</li>';
+
+										echo '<li class="timeline">';
+											echo '<div class="timeline-time">';
+												echo '<span class="time">'.date("j M Y", strtotime($row['date'])).'</span>';
+											echo '</div>';
+											echo '<div class="timeline-icon"><i class="fa fa-rss"></i></div>';
+											echo '<div class="timeline-body">';
+												echo '<div class="row">';
+												echo '<div class="col-md-12">';
+												echo'<div class="tabbable tabbable-custom boxless">';
+												echo'<div class="margin-top-10">';
+												echo'<div class="row mix-grid">';
+									}
+										
+								
+									echo'<div class="col-md-4 col-sm-4 mix">';
+										echo'<div class="mix-inner" value='.$row['name'].'>';
+										echo '<img class="img-responsive" src="images/'.$row['name'].'" alt="">';
+
+										echo '<div class="mix-details">';
+										echo '<a href="#" class="editCommentBtn" name="'.$row['name'].'" comment="'.$row['comment'].'">';
+															echo'<h4>'.$row['comment'].'</h4>';
+														echo'</a>';
+														echo'<a class="mix-link">';
+															echo'<i class="fa fa-link"></i>';
+														echo'</a>';
+														echo'<a class="mix-preview fancybox-button" href="images/'.$row['name'].'" title="Project Name" data-rel="fancybox-button">
+															<i class="fa fa-search"></i>
+														</a>';
+
+													echo'</div>';
+												echo'</div>';
+											echo'</div>';
+
+												
+
+
+												
+									// }
+								}
+								echo'</div>';
+																echo'</div>';
+															echo'</div>';
+														echo'</div>';
+													echo'</div>';
+													
+												echo'</div>';
+											echo '</li>';
+						mysqli_close($con);
+						?>				
+							
+							
+															
+															
+						
+					</ul>
+				</div>
+			</div>
+			<!-- END PAGE CONTENT-->
+		</div>
+	</div>
+	<!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<div class="footer">
+	<div class="footer-inner">
+		 2014 &copy; Metronic by keenthemes.
+	</div>
+	<div class="footer-tools">
+		<span class="go-top">
+			<i class="fa fa-angle-up"></i>
+		</span>
+	</div>
+</div>
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="assets/plugins/respond.min.js"></script>
+<script src="assets/plugins/excanvas.min.js"></script> 
+<![endif]-->
+<script src="assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="assets/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="assets/plugins/jquery-mixitup/jquery.mixitup.min.js"></script>
+<script type="text/javascript" src="assets/plugins/fancybox/source/jquery.fancybox.pack.js"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<script src="assets/scripts/core/app.js"></script>
+<script src="assets/scripts/custom/portfolio.js"></script>
+<script>
+jQuery(document).ready(function() {       
+   // initiate layout and plugins
+   App.init();
+   Portfolio.init();
+});
+	var selected_num = 0;
+	$(".mix-link").click(function(){
+		var $parent = $(this).parent().parent();
+
+		if( $parent.attr("class") == "mix-inner selectedImage"){
+			$parent.attr("class", "mix-inner");
+			selected_num-=1;
+			$("#selected_num").text(selected_num);
+		}
+		else{
+			$parent.attr("class", "mix-inner selectedImage");
+			selected_num+=1;
+			$("#selected_num").text(selected_num);
+		}
+		
+	})
+	$("#saveEditModal").click(function(){
+		var selected = new Array();
+		var comment = $("#commentEditModal").val();
+		$('#tag_list li label input:checked').each(function() {
+		    selected.push($(this).attr('value'));
+		});
+		// $.ajax({
+		// 	    type: 'POST',
+		// 	    // make sure you respect the same origin policy with this url:
+		// 	    // http://en.wikipedia.org/wiki/Same_origin_policy
+		// 	    url: 'editComment.php',
+		// 	    data: { 
+		// 	        'name': name, 
+		// 	        'comment': comment // <-- the $ sign in the parameter name seems unusual, I would avoid it
+		// 	    },
+		// 	    success: function(msg){
+		// 	    }
+		// 	});
+		$('#editModal').modal('hide');
+	})
+
+	$(".editCommentBtn").click(function(){
+		$("#commentEditModal").text($(this).attr('comment'));
+		var image_name = $(this).attr('name');
+		// alert("start");
+		$.ajax({
+			    type: 'POST',
+			    url: 'getImageTag.php',
+			    data: { 
+			        'name': image_name
+			    },
+			    success: function(result){
+
+			    	var a = result.split(',');;
+			    	for (var i = 0; i < a.length-1; i++) {
+			    		alert(a[i]);
+					    $("input[type=checkbox][value="+a[i]+"]").prop('checked', true);
+					}
+			    }
+			});
+		// alert("end");
+		$('#editModal').modal('toggle')
+	})
+	$("#saveAddModal").click(function(){
+		var gallary_name = $("#gallary_list :selected").text();
+		$(".selectedImage").each(function() {
+		   
+		   var image_name = $(this).attr("value");
+		   $(this).attr("class", "mix-inner")
+		   $.ajax({
+			    type: 'POST',
+			    // make sure you respect the same origin policy with this url:
+			    // http://en.wikipedia.org/wiki/Same_origin_policy
+			    url: 'addImageToGallary.php',
+			    data: { 
+			        'gallary_name': gallary_name, 
+			        'image_name': image_name // <-- the $ sign in the parameter name seems unusual, I would avoid it
+			    },
+			    success: function(msg){
+			    }
+			});
+		});  
+		
+		$('#addModal').modal('hide')
+		alert("Successfuly move images to gallary.");
+	})
+
+	$("#deleteImage").click(function(){
+		$(".selectedImage").each(function() {
+		   
+		   var name = $(this).attr("value");
+		   $(this).attr("class", "mix-inner")
+		   $.ajax({
+			    type: 'POST',
+			    // make sure you respect the same origin policy with this url:
+			    // http://en.wikipedia.org/wiki/Same_origin_policy
+			    url: 'deleteImage.php',
+			    data: { 
+			        'name': name 
+			    },
+			    success: function(msg){
+			    	location.reload();
+			    }
+			});
+			});  
+		
+	})
+
+	
+	$("#saveAddTagModal").click(function(){
+   		var name = $("#tag_name").val();
+
+   		$.ajax({
+			    type: 'POST',
+			    // make sure you respect the same origin policy with this url:
+			    // http://en.wikipedia.org/wiki/Same_origin_policy
+			    url: 'addTag.php',
+			    data: { 
+			        'name': name
+			    },
+			    success: function(msg){
+			    	$('#addTagModal').modal('hide');
+					alert(name+" Tag is created.");
+					location.reload();
+			    }
+			});
+		
+		
+   })
+
+</script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
